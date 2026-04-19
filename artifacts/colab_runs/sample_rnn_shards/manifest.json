@@ -1,0 +1,24 @@
+{
+  "input": "A:\\ml-PROJECT\\artifacts\\sample_data\\colab_dev_60_games.pgn",
+  "output_dir": "A:\\ml-PROJECT\\artifacts\\colab_runs\\sample_rnn_shards",
+  "max_games": null,
+  "workers": 1,
+  "chunk_games": 4,
+  "games_per_shard": 32,
+  "processed_games": 60,
+  "feature_count": 41,
+  "splits": {
+    "train": {
+      "games": 39,
+      "shards": 2
+    },
+    "val": {
+      "games": 9,
+      "shards": 1
+    },
+    "test": {
+      "games": 12,
+      "shards": 1
+    }
+  }
+}

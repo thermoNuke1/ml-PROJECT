@@ -349,13 +349,21 @@ def main() -> None:
         writer = csv.DictWriter(csv_handle, fieldnames=OUTPUT_COLUMNS, extrasaction="ignore")
         writer.writeheader()
 
-        with multiprocessing.Pool(num_workers) as pool:
-            game_iter = _game_strings_iter(args.input, args.max_games)
-            for rows in pool.imap(_process_game_string, game_iter, chunksize=16):
+        game_iter = _game_strings_iter(args.input, args.max_games)
+        if num_workers == 1:
+            for game_str in game_iter:
+                rows = _process_game_string(game_str)
                 if rows:
                     writer.writerows(rows)
                     processed_games += 1
                     written_rows += len(rows)
+        else:
+            with multiprocessing.Pool(num_workers) as pool:
+                for rows in pool.imap(_process_game_string, game_iter, chunksize=16):
+                    if rows:
+                        writer.writerows(rows)
+                        processed_games += 1
+                        written_rows += len(rows)
     
     print(f"Workers used: {num_workers}")
     print(f"Processed games: {processed_games}")

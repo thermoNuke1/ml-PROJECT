@@ -1,0 +1,8 @@
+# Lightweight dependency layer for the Google Colab workflow.
+# Colab already ships with numpy, pandas, scikit-learn, matplotlib, and torch.
+# These packages cover the project-specific extras that are not always present.
+python-chess>=1.999
+xgboost>=2.0.0
+orjson>=3.10.0
+xxhash>=3.5.0
+joblib>=1.3.0

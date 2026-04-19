@@ -1,0 +1,18 @@
+{
+  "train_rows": 46436,
+  "val_rows": 5202,
+  "test_rows": 13550,
+  "train_games": 720,
+  "val_games": 80,
+  "test_games": 200,
+  "train_classes": 3,
+  "val_classes": 3,
+  "test_classes": 3,
+  "model": "logreg",
+  "numeric_feature_count": 41,
+  "categorical_feature_count": 2,
+  "val_accuracy": 0.60399846212995,
+  "val_log_loss": 0.8068413624362748,
+  "test_accuracy": 0.572250922509225,
+  "test_log_loss": 0.8365276176028668
+}

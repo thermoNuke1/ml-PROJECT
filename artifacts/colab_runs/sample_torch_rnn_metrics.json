@@ -1,0 +1,53 @@
+{
+  "input_dir": "A:\\ml-PROJECT\\artifacts\\colab_runs\\sample_rnn_shards",
+  "model": "torch_rnn_shards",
+  "architecture": {
+    "model_type": "rnn",
+    "hidden_size": 32,
+    "dense_units": 16,
+    "dropout": 0.0,
+    "optimizer": "adam",
+    "learning_rate": 0.001,
+    "batch_size": 16,
+    "max_epochs": 1,
+    "device": "cpu",
+    "num_workers": 0,
+    "pin_memory": false,
+    "persistent_workers": false,
+    "automatic_mixed_precision": false,
+    "midgame_weight_start": null,
+    "midgame_weight_end": null,
+    "midgame_weight_factor": 1.0
+  },
+  "move_interval": 5,
+  "train_games": 39,
+  "val_games": 9,
+  "test_games": 12,
+  "train_sequences": 301,
+  "val_sequences": 75,
+  "test_sequences": 115,
+  "feature_count": 41,
+  "training_history": {
+    "epochs": [
+      1
+    ],
+    "train_loss": [
+      1.1227736025553605
+    ],
+    "train_accuracy": [
+      0.38205980066445183
+    ],
+    "val_loss": [
+      1.1314091507485817
+    ],
+    "val_accuracy": [
+      0.3333333333333333
+    ],
+    "best_epoch": 1
+  },
+  "val_accuracy": 0.3333333333333333,
+  "val_log_loss": 1.1314091507485817,
+  "test_accuracy": 0.7217391304347827,
+  "test_log_loss": 0.9549065065685796,
+  "landmarks": []
+}

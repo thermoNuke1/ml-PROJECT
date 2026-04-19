@@ -371,12 +371,14 @@ def main() -> None:
         num_workers=args.num_workers,
         pin_memory=pin_memory,
     )
+    eval_workers = 0 if args.num_workers == 0 else min(2, args.num_workers)
+
     val_loader = make_loader(
         val_shards,
         args.move_interval,
         args.batch_size,
         shuffle_shards=False,
-        num_workers=max(1, min(2, args.num_workers)),
+        num_workers=eval_workers,
         pin_memory=pin_memory,
     )
     test_loader = make_loader(
@@ -384,7 +386,7 @@ def main() -> None:
         args.move_interval,
         args.batch_size,
         shuffle_shards=False,
-        num_workers=max(1, min(2, args.num_workers)),
+        num_workers=eval_workers,
         pin_memory=pin_memory,
     )
 
