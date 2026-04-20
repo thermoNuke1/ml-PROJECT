@@ -33,7 +33,14 @@ CLASS_ORDER = ["white_win", "black_win", "draw"]
 
 
 def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments for landmark evaluation."""
+    """Parse command-line arguments for landmark evaluation.
+
+    Returns:
+        argparse.Namespace: Parsed CLI arguments.
+
+    Example:
+        python scripts/evaluate_landmarks.py --input features.csv --model logreg --output metrics.json
+    """
     parser = argparse.ArgumentParser(
         description="Evaluate a trained model at fixed 5-move landmarks."
     )
@@ -84,7 +91,16 @@ def parse_args() -> argparse.Namespace:
 
 
 def multiclass_brier_score(y_true: pd.Series, proba: np.ndarray, labels: list[str]) -> float:
-    """Compute the multiclass Brier score."""
+    """Compute the multiclass Brier score.
+
+    Args:
+        y_true (pd.Series): Ground-truth class labels.
+        proba (np.ndarray): Predicted class probabilities with shape ``(n, c)``.
+        labels (list[str]): Class order used for alignment.
+
+    Returns:
+        float: Mean multiclass Brier score across all rows.
+    """
     true_matrix = np.zeros((len(y_true), len(labels)), dtype=float)
     label_to_index = {label: index for index, label in enumerate(labels)}
 
@@ -101,7 +117,18 @@ def evaluate_landmarks(
     move_interval: int,
     min_games_per_landmark: int,
 ) -> list[dict[str, object]]:
-    """Evaluate one trained model at fixed full-move landmarks."""
+    """Evaluate a trained model at fixed full-move landmarks.
+
+    Args:
+        test_frame (pd.DataFrame): Test-set rows with ``ply_index`` and target columns.
+        selected_features (list[str]): Feature columns used for inference.
+        model: Fitted sklearn-compatible estimator with ``predict`` and ``predict_proba``.
+        move_interval (int): Evaluate every N full moves.
+        min_games_per_landmark (int): Minimum game count required to report a landmark.
+
+    Returns:
+        list[dict[str, object]]: Landmark-level metrics ready for JSON export.
+    """
     max_full_moves = int(test_frame["ply_index"].max() // 2)
     landmark_results: list[dict[str, object]] = []
 
@@ -142,7 +169,7 @@ def evaluate_landmarks(
 
 
 def main() -> None:
-    """Train a model and evaluate it at 5-move landmarks."""
+    """Train a snapshot model and export landmark-level test metrics."""
     args = parse_args()
     frame = load_dataset(args.input, max_rows=None)
     frame = frame.dropna(subset=["game_id", "result", "ply_index"]).copy()

@@ -16,7 +16,14 @@ from pathlib import Path
 
 
 def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments for the PGN filtering script."""
+    """Parse command-line arguments for PGN filtering.
+
+    Returns:
+        argparse.Namespace: Parsed CLI arguments.
+
+    Example:
+        python scripts/filter_lichess_pgn.py --input games.pgn --output rapid.pgn
+    """
     parser = argparse.ArgumentParser(
         description="Stream-filter a PGN file by time control and termination."
     )
@@ -57,7 +64,14 @@ def parse_args() -> argparse.Namespace:
 
 
 def iter_games(pgn_path: Path):
-    """Yield each game as a list of raw lines, one game at a time."""
+    """Yield one PGN game at a time from a text file.
+
+    Args:
+        pgn_path (Path): Source PGN file.
+
+    Yields:
+        list[str]: Raw text lines for one game.
+    """
     current_game: list[str] = []
     seen_moves = False
 
@@ -83,7 +97,14 @@ def iter_games(pgn_path: Path):
 
 
 def extract_headers(game_lines: list[str]) -> dict[str, str]:
-    """Parse bracket-style PGN headers into a tag->value dict."""
+    """Parse bracket-style PGN headers into a dictionary.
+
+    Args:
+        game_lines (list[str]): Raw PGN lines for one game.
+
+    Returns:
+        dict[str, str]: Mapping from PGN tag name to tag value.
+    """
     headers: dict[str, str] = {}
 
     for line in game_lines:
@@ -106,7 +127,16 @@ def should_keep_game(
     expected_time_control: str,
     allowed_terminations: set[str],
 ) -> bool:
-    """True if the game's TimeControl and Termination both match."""
+    """Check whether a game matches the requested filters.
+
+    Args:
+        headers (dict[str, str]): Parsed PGN headers.
+        expected_time_control (str): Required ``TimeControl`` value.
+        allowed_terminations (set[str]): Accepted ``Termination`` values.
+
+    Returns:
+        bool: ``True`` when the game should be kept.
+    """
     return (
         headers.get("TimeControl") == expected_time_control
         and headers.get("Termination") in allowed_terminations
@@ -114,7 +144,7 @@ def should_keep_game(
 
 
 def main() -> None:
-    """Filter the input PGN file and write matching games to disk."""
+    """Filter a PGN file and write matching games to disk."""
     args = parse_args()
     allowed_terminations = set(args.terminations or ["Normal"])
 

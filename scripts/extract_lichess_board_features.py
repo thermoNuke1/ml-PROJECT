@@ -83,7 +83,14 @@ OUTPUT_COLUMNS = [
 
 
 def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments for board-aware feature extraction."""
+    """Parse command-line arguments for board-aware feature extraction.
+
+    Returns:
+        argparse.Namespace: Parsed CLI arguments.
+
+    Example:
+        python scripts/extract_lichess_board_features.py --input games.pgn --output features.csv
+    """
     parser = argparse.ArgumentParser(
         description="Extract move-level board features from a PGN file."
     )
@@ -111,7 +118,14 @@ def parse_args() -> argparse.Namespace:
 
 
 def safe_int(value: str | None) -> int | None:
-    """Convert a string to int when possible."""
+    """Convert a string to ``int`` when possible.
+
+    Args:
+        value (str | None): Candidate value from PGN metadata.
+
+    Returns:
+        int | None: Parsed integer, or ``None`` if parsing fails.
+    """
     if value is None:
         return None
     try:
@@ -121,7 +135,14 @@ def safe_int(value: str | None) -> int | None:
 
 
 def parse_time_control_seconds(time_control: str) -> int | None:
-    """Parse the base time in seconds from a PGN time control tag."""
+    """Parse the base time, in seconds, from a PGN time-control tag.
+
+    Args:
+        time_control (str): PGN ``TimeControl`` string such as ``"600+0"``.
+
+    Returns:
+        int | None: Base time in seconds, or ``None`` if unavailable.
+    """
     if "+" not in time_control:
         return None
     base, _increment = time_control.split("+", 1)
@@ -132,7 +153,14 @@ def parse_time_control_seconds(time_control: str) -> int | None:
 
 
 def parse_result_flags(result: str) -> tuple[int, int, int]:
-    """Convert a PGN result string into binary target flags."""
+    """Convert a PGN result string into one-hot target flags.
+
+    Args:
+        result (str): PGN result string such as ``"1-0"`` or ``"1/2-1/2"``.
+
+    Returns:
+        tuple[int, int, int]: ``(white_win, black_win, draw)`` flags.
+    """
     if result == "1-0":
         return 1, 0, 0
     if result == "0-1":
@@ -144,7 +172,14 @@ def parse_result_flags(result: str) -> tuple[int, int, int]:
 
 
 def process_game(game: chess.pgn.Game) -> list[dict]:
-    """Process a single game into move-level rows using incremental board state."""
+    """Extract move-level board-aware features from one PGN game.
+
+    Args:
+        game (chess.pgn.Game): Parsed PGN game.
+
+    Returns:
+        list[dict]: One feature row per move, ready for CSV export.
+    """
     headers = game.headers
     initial_time = parse_time_control_seconds(headers.get("TimeControl", ""))
     white_time_seconds = initial_time
@@ -294,7 +329,14 @@ def process_game(game: chess.pgn.Game) -> list[dict]:
     return rows
 
 def _process_game_string(game_str: str) -> list[dict]:
-    """Worker entry point: parse a PGN string and extract features."""
+    """Parse a PGN string and extract move-level features.
+
+    Args:
+        game_str (str): Serialized PGN text for one game.
+
+    Returns:
+        list[dict]: Extracted feature rows for that game.
+    """
     pgn_io = io.StringIO(game_str)
     game = chess.pgn.read_game(pgn_io)
     if game is None:
@@ -303,7 +345,15 @@ def _process_game_string(game_str: str) -> list[dict]:
 
 
 def _game_strings_iter(pgn_path: Path, max_games: int | None):
-    """Yield each game as a PGN string, reading the source file sequentially."""
+    """Yield serialized PGN games from a source file.
+
+    Args:
+        pgn_path (Path): Source PGN file.
+        max_games (int | None): Optional cap on yielded games.
+
+    Yields:
+        str: Serialized PGN text for one game.
+    """
     # StringExporterMixin has no begin_game() reset — self.lines accumulates
     # across calls if the same instance is reused. Create one per game.
     with pgn_path.open("r", encoding="utf-8", errors="replace") as f:
@@ -318,7 +368,7 @@ def _game_strings_iter(pgn_path: Path, max_games: int | None):
                 break
 
 def main() -> None:
-    """Extract move-level board features from PGN and write them to CSV."""
+    """Extract board-aware move features from PGN and write them to CSV."""
     args = parse_args()
     args.output.parent.mkdir(parents=True, exist_ok=True)
 
