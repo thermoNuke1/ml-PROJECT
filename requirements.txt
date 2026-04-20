@@ -1,6 +1,6 @@
-# Lightweight dependency layer for the Google Colab workflow.
-# Colab already ships with numpy, pandas, scikit-learn, matplotlib, and torch.
-# These packages cover the project-specific extras that are not always present.
+# numpy, scikit-learn, matplotlib, and torch are typically pre-installed in Colab.
+# pandas and the packages below are not always present and are installed explicitly.
+pandas>=1.5.0
 python-chess>=1.999
 xgboost>=2.0.0
 orjson>=3.10.0
