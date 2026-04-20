@@ -1,0 +1,188 @@
+{
+  "input": "data\\dev_board_features_50000_games.csv",
+  "model": "basic_rnn",
+  "architecture": {
+    "type": "gru",
+    "recurrent_layers": [
+      64
+    ],
+    "dense_units": 32,
+    "activation": "relu",
+    "optimizer": "adam",
+    "learning_rate": 0.001,
+    "dropout": 0.2,
+    "recurrent_dropout": 0.1,
+    "batch_size": 64,
+    "max_epochs": 20,
+    "landmark_weight_start": 20,
+    "landmark_weight_end": 50,
+    "landmark_weight_factor": 1.5,
+    "draw_weight_factor": 1.0
+  },
+  "move_interval": 5,
+  "train_games": 35991,
+  "val_games": 3999,
+  "test_games": 9998,
+  "train_sequences": 211180,
+  "val_sequences": 23599,
+  "test_sequences": 59104,
+  "feature_count": 41,
+  "val_accuracy": 0.605364634094665,
+  "val_log_loss": 0.8102115233312521,
+  "test_accuracy": 0.6095695722793719,
+  "test_log_loss": 0.8090592548259716,
+  "landmarks": [
+    {
+      "full_move_landmark": 5,
+      "games": 9858,
+      "rows": 9858,
+      "accuracy": 0.5231284236153378,
+      "log_loss": 0.8372122162305683,
+      "brier_score": 0.5343083739280701
+    },
+    {
+      "full_move_landmark": 10,
+      "games": 9408,
+      "rows": 9408,
+      "accuracy": 0.5394345238095238,
+      "log_loss": 0.8287324452564597,
+      "brier_score": 0.5250102877616882
+    },
+    {
+      "full_move_landmark": 15,
+      "games": 8644,
+      "rows": 8644,
+      "accuracy": 0.5832947709393799,
+      "log_loss": 0.809930100902259,
+      "brier_score": 0.5044612884521484
+    },
+    {
+      "full_move_landmark": 20,
+      "games": 7516,
+      "rows": 7516,
+      "accuracy": 0.6177488025545503,
+      "log_loss": 0.7888246215590974,
+      "brier_score": 0.4807480275630951
+    },
+    {
+      "full_move_landmark": 25,
+      "games": 6201,
+      "rows": 6201,
+      "accuracy": 0.6519916142557652,
+      "log_loss": 0.7694823622454307,
+      "brier_score": 0.458489328622818
+    },
+    {
+      "full_move_landmark": 30,
+      "games": 4787,
+      "rows": 4787,
+      "accuracy": 0.6720284102778358,
+      "log_loss": 0.7704949799172465,
+      "brier_score": 0.4495753347873688
+    },
+    {
+      "full_move_landmark": 35,
+      "games": 3608,
+      "rows": 3608,
+      "accuracy": 0.7084257206208425,
+      "log_loss": 0.7672544829447857,
+      "brier_score": 0.43683579564094543
+    },
+    {
+      "full_move_landmark": 40,
+      "games": 2698,
+      "rows": 2698,
+      "accuracy": 0.7171979243884359,
+      "log_loss": 0.7814512897692614,
+      "brier_score": 0.4397164583206177
+    },
+    {
+      "full_move_landmark": 45,
+      "games": 2001,
+      "rows": 2001,
+      "accuracy": 0.7201399300349826,
+      "log_loss": 0.797109472543741,
+      "brier_score": 0.4452097713947296
+    },
+    {
+      "full_move_landmark": 50,
+      "games": 1495,
+      "rows": 1495,
+      "accuracy": 0.705685618729097,
+      "log_loss": 0.8161758858939334,
+      "brier_score": 0.45145750045776367
+    },
+    {
+      "full_move_landmark": 55,
+      "games": 1044,
+      "rows": 1044,
+      "accuracy": 0.6934865900383141,
+      "log_loss": 0.8608434740597111,
+      "brier_score": 0.478229284286499
+    },
+    {
+      "full_move_landmark": 60,
+      "games": 700,
+      "rows": 700,
+      "accuracy": 0.6885714285714286,
+      "log_loss": 0.8691846702427526,
+      "brier_score": 0.4759407341480255
+    },
+    {
+      "full_move_landmark": 65,
+      "games": 439,
+      "rows": 439,
+      "accuracy": 0.6560364464692483,
+      "log_loss": 0.9205542330853096,
+      "brier_score": 0.5105069279670715
+    },
+    {
+      "full_move_landmark": 70,
+      "games": 261,
+      "rows": 261,
+      "accuracy": 0.6206896551724138,
+      "log_loss": 0.9612003215845758,
+      "brier_score": 0.5355749726295471
+    },
+    {
+      "full_move_landmark": 75,
+      "games": 156,
+      "rows": 156,
+      "accuracy": 0.5769230769230769,
+      "log_loss": 1.0307945035042472,
+      "brier_score": 0.5775690078735352
+    },
+    {
+      "full_move_landmark": 80,
+      "games": 97,
+      "rows": 97,
+      "accuracy": 0.5360824742268041,
+      "log_loss": 1.085509027118583,
+      "brier_score": 0.6159093976020813
+    },
+    {
+      "full_move_landmark": 85,
+      "games": 66,
+      "rows": 66,
+      "accuracy": 0.48484848484848486,
+      "log_loss": 1.166141630309348,
+      "brier_score": 0.6703236699104309
+    },
+    {
+      "full_move_landmark": 90,
+      "games": 39,
+      "rows": 39,
+      "accuracy": 0.3076923076923077,
+      "log_loss": 1.3551687364107117,
+      "brier_score": 0.795997679233551
+    },
+    {
+      "full_move_landmark": 95,
+      "games": 31,
+      "rows": 31,
+      "accuracy": 0.3225806451612903,
+      "log_loss": 1.3662673793086326,
+      "brier_score": 0.7917830944061279
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "input": "data\\dev_board_features_50000_games.csv",
+  "model": "logreg",
+  "oversample_draw_factor": 1.0,
+  "move_interval": 5,
+  "train_games": 35991,
+  "val_games": 3999,
+  "test_games": 9998,
+  "numeric_feature_count": 40,
+  "categorical_feature_count": 2,
+  "landmarks": [
+    {
+      "full_move_landmark": 5,
+      "games": 9858,
+      "rows": 9858,
+      "accuracy": 0.5220125786163522,
+      "log_loss": 1.9526093503099413,
+      "brier_score": 0.5336577852875196
+    },
+    {
+      "full_move_landmark": 10,
+      "games": 9408,
+      "rows": 9408,
+      "accuracy": 0.5496386054421769,
+      "log_loss": 1.9975571999721486,
+      "brier_score": 0.5175066252457649
+    },
+    {
+      "full_move_landmark": 15,
+      "games": 8644,
+      "rows": 8644,
+      "accuracy": 0.5878065710319297,
+      "log_loss": 2.033521590789832,
+      "brier_score": 0.49890698471862677
+    },
+    {
+      "full_move_landmark": 20,
+      "games": 7516,
+      "rows": 7516,
+      "accuracy": 0.6306546035125067,
+      "log_loss": 2.054931604790721,
+      "brier_score": 0.472355670946368
+    },
+    {
+      "full_move_landmark": 25,
+      "games": 6201,
+      "rows": 6201,
+      "accuracy": 0.6669891952910821,
+      "log_loss": 2.0396468125580376,
+      "brier_score": 0.44641081155736656
+    },
+    {
+      "full_move_landmark": 30,
+      "games": 4787,
+      "rows": 4787,
+      "accuracy": 0.6881136411113432,
+      "log_loss": 1.9857156374398373,
+      "brier_score": 0.43095902969948374
+    },
+    {
+      "full_move_landmark": 35,
+      "games": 3608,
+      "rows": 3608,
+      "accuracy": 0.7211751662971175,
+      "log_loss": 1.9360136051033419,
+      "brier_score": 0.4084291927779708
+    },
+    {
+      "full_move_landmark": 40,
+      "games": 2698,
+      "rows": 2698,
+      "accuracy": 0.7316530763528539,
+      "log_loss": 1.888564076007156,
+      "brier_score": 0.40155692830777534
+    },
+    {
+      "full_move_landmark": 45,
+      "games": 2001,
+      "rows": 2001,
+      "accuracy": 0.7376311844077961,
+      "log_loss": 1.8796229707309169,
+      "brier_score": 0.40280444096430235
+    },
+    {
+      "full_move_landmark": 50,
+      "games": 1495,
+      "rows": 1495,
+      "accuracy": 0.7351170568561873,
+      "log_loss": 1.9290463618839022,
+      "brier_score": 0.3986214160062674
+    },
+    {
+      "full_move_landmark": 55,
+      "games": 1044,
+      "rows": 1044,
+      "accuracy": 0.7298850574712644,
+      "log_loss": 1.9590665432548158,
+      "brier_score": 0.4069337210023276
+    },
+    {
+      "full_move_landmark": 60,
+      "games": 700,
+      "rows": 700,
+      "accuracy": 0.73,
+      "log_loss": 2.063414751731566,
+      "brier_score": 0.3884100580648977
+    },
+    {
+      "full_move_landmark": 65,
+      "games": 439,
+      "rows": 439,
+      "accuracy": 0.7061503416856492,
+      "log_loss": 2.153443854672637,
+      "brier_score": 0.40537387166101413
+    },
+    {
+      "full_move_landmark": 70,
+      "games": 261,
+      "rows": 261,
+      "accuracy": 0.7203065134099617,
+      "log_loss": 2.1133782529953478,
+      "brier_score": 0.4125966971139708
+    },
+    {
+      "full_move_landmark": 75,
+      "games": 156,
+      "rows": 156,
+      "accuracy": 0.717948717948718,
+      "log_loss": 1.9441722745595615,
+      "brier_score": 0.4432940131872637
+    },
+    {
+      "full_move_landmark": 80,
+      "games": 97,
+      "rows": 97,
+      "accuracy": 0.6597938144329897,
+      "log_loss": 2.1442501486568077,
+      "brier_score": 0.4308974453048722
+    },
+    {
+      "full_move_landmark": 85,
+      "games": 66,
+      "rows": 66,
+      "accuracy": 0.6212121212121212,
+      "log_loss": 2.0189058566453197,
+      "brier_score": 0.4394854445071182
+    },
+    {
+      "full_move_landmark": 90,
+      "games": 39,
+      "rows": 39,
+      "accuracy": 0.5897435897435898,
+      "log_loss": 1.900749964628588,
+      "brier_score": 0.4735128651655005
+    },
+    {
+      "full_move_landmark": 95,
+      "games": 31,
+      "rows": 31,
+      "accuracy": 0.7419354838709677,
+      "log_loss": 2.0257710182903277,
+      "brier_score": 0.3699556909220774
+    }
+  ]
+}
