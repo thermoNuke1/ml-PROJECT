@@ -1,14 +1,12 @@
-"""Train a first baseline model on extracted Lichess move features.
+"""Train and evaluate a sklearn model on board-aware Lichess move features.
 
-This script trains a simple multiclass logistic regression model to predict the
-final result of a game from move-level tabular features. It performs the split
-by game ID rather than by row, which helps avoid leakage between training and
-test snapshots from the same game.
+Splits by game ID (not by row) to prevent leakage across snapshots from the
+same game. Supports logistic regression, calibrated SVM, histogram gradient
+boosting, XGBoost, and several MLP configurations via --model.
 
-Example:
-    python scripts/train_baseline_model.py ^
-        --input data/sample_move_features.csv ^
-        --test-size 0.2
+    python scripts/train_baseline_model.py \
+        --input data/dev_board_features_10000_games.csv \
+        --model logreg --output-json artifacts/logreg_10k.json
 """
 
 from __future__ import annotations

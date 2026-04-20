@@ -1,15 +1,12 @@
-"""Filter a large Lichess PGN file using streaming header checks.
+"""Stream-filter a Lichess PGN export by time control and termination type.
 
-This script is designed for very large PGN exports that do not fit in memory.
-It reads one game at a time, inspects the PGN headers, and writes only the
-games that match the requested criteria.
+The raw monthly PGN is way too large to load into memory, so this reads one
+game at a time and writes only the ones that match. Usage:
 
-Example:
-    python scripts/filter_lichess_pgn.py ^
-        --input lichess_db_standard_rated_2026-02/lichess_db_standard_rated_2026-02.pgn ^
-        --output data/lichess_rapid_10_0_completed.pgn ^
-        --time-control 600+0 ^
-        --termination Normal
+    python scripts/filter_lichess_pgn.py \
+        --input lichess_db_standard_rated_2026-02/lichess_db_standard_rated_2026-02.pgn \
+        --output data/lichess_rapid_10_0_completed.pgn \
+        --time-control 600+0 --termination Normal
 """
 
 from __future__ import annotations
@@ -60,18 +57,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def iter_games(pgn_path: Path):
-    """Yield PGN games as lists of lines from a large PGN file.
-
-    Args:
-        pgn_path: Path to the input PGN file.
-
-    Yields:
-        list[str]: The raw lines corresponding to a single PGN game.
-
-    Example:
-        >>> isinstance(next(iter_games(Path("sample.pgn"))), list)
-        True
-    """
+    """Yield each game as a list of raw lines, one game at a time."""
     current_game: list[str] = []
     seen_moves = False
 
@@ -97,18 +83,7 @@ def iter_games(pgn_path: Path):
 
 
 def extract_headers(game_lines: list[str]) -> dict[str, str]:
-    """Extract PGN headers from a game block.
-
-    Args:
-        game_lines: Raw PGN lines for one game.
-
-    Returns:
-        dict[str, str]: Mapping from PGN tag names to values.
-
-    Example:
-        >>> extract_headers(['[Event "Rated Rapid game"]\\n'])["Event"]
-        'Rated Rapid game'
-    """
+    """Parse bracket-style PGN headers into a tag->value dict."""
     headers: dict[str, str] = {}
 
     for line in game_lines:
@@ -131,24 +106,7 @@ def should_keep_game(
     expected_time_control: str,
     allowed_terminations: set[str],
 ) -> bool:
-    """Return whether a game matches the requested filters.
-
-    Args:
-        headers: PGN header mapping for one game.
-        expected_time_control: Required value of the TimeControl PGN tag.
-        allowed_terminations: Allowed values for the Termination PGN tag.
-
-    Returns:
-        bool: True when the game matches the filters.
-
-    Example:
-        >>> should_keep_game(
-        ...     {"TimeControl": "600+0", "Termination": "Normal"},
-        ...     "600+0",
-        ...     {"Normal"},
-        ... )
-        True
-    """
+    """True if the game's TimeControl and Termination both match."""
     return (
         headers.get("TimeControl") == expected_time_control
         and headers.get("Termination") in allowed_terminations

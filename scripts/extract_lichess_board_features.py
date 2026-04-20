@@ -1,32 +1,13 @@
-"""Extract move-level board-aware chess features from PGN.
+"""Extract board-aware move features from a filtered Lichess PGN into a CSV.
 
-This is the flat CSV extractor used for snapshot-style models such as logistic
-regression, SVM, MLP, gradient boosting, and XGBoost. It reconstructs the
-board after every move and writes one row per move.
+Replays each game with python-chess and writes one row per move with Elo,
+clock, SAN flags, and board state (material, castling rights, legal moves, etc).
+Used for snapshot-style models (logistic regression, SVM, MLP, XGBoost).
 
-Example:
-    python scripts/extract_lichess_board_features.py ^
-        --input data/sample_rapid_10_0_completed.pgn ^
-        --output data/sample_board_features.csv ^
-        --max-games 100
-
-Larger run:
-    python scripts/extract_lichess_board_features.py ^
-        --input data/lichess_rapid_10_0_completed.pgn ^
-        --output data/dev_board_features_10000_games.csv ^
+    python scripts/extract_lichess_board_features.py \
+        --input data/lichess_rapid_10_0_completed.pgn \
+        --output data/dev_board_features_10000_games.csv \
         --max-games 10000
-
-Important flags:
-    --input:
-        Source PGN file, usually the filtered rapid dataset.
-    --output:
-        Destination CSV file with one move-level row per position.
-    --max-games:
-        Optional cap on the number of games to process.
-
-Output:
-    A CSV containing Elo, clock, SAN, and board-derived features such as
-    material counts, legal moves, castling rights, and check status.
 """
 
 from __future__ import annotations
