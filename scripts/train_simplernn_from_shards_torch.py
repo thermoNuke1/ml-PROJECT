@@ -1,54 +1,24 @@
-"""Train recurrent sequence models from NPZ shards with PyTorch.
+"""Train RNN/GRU/LSTM on NPZ shards produced by extract_rnn_game_shards_parallel.py.
 
-This trainer consumes the shard format produced by
-`extract_rnn_game_shards_parallel.py` and trains a sequence model on landmark
-prefixes every `move_interval` full moves.
+Usage examples (Windows):
 
-Basic SimpleRNN example:
     python scripts/train_simplernn_from_shards_torch.py ^
         --input-dir data/rnn_shards_250000 ^
         --output data/torch_rnn_landmark_board_250000.json ^
-        --model-type rnn ^
-        --device cuda
+        --model-type rnn --device cuda
 
-GRU + dropout + midgame weighting example:
     python scripts/train_simplernn_from_shards_torch.py ^
         --input-dir data/rnn_shards_250000 ^
         --output data/torch_gru_midweight_250000.json ^
-        --model-type gru ^
-        --dropout 0.2 ^
-        --midgame-weight-start 20 ^
-        --midgame-weight-end 50 ^
-        --midgame-weight-factor 1.5 ^
-        --device cuda
+        --model-type gru --dropout 0.2 ^
+        --midgame-weight-start 20 --midgame-weight-end 50 ^
+        --midgame-weight-factor 1.5 --device cuda
 
-Resume from the last checkpoint:
     python scripts/train_simplernn_from_shards_torch.py ^
         --input-dir data/rnn_shards_250000 ^
         --output data/torch_rnn_landmark_board_250000.json ^
         --checkpoint-dir data/torch_rnn_landmark_board_250000_ckpts ^
         --resume-from data/torch_rnn_landmark_board_250000_ckpts/latest.pt
-
-Important flags:
-    --input-dir:
-        Directory containing train/val/test shard folders and manifest.json.
-    --output:
-        Destination JSON file for final metrics and landmark results.
-    --model-type:
-        `rnn`, `gru`, or `lstm`.
-    --move-interval:
-        Full-move interval used to generate prefix examples, e.g. 5 means
-        moves 5, 10, 15, ...
-    --batch-size:
-        Number of prefix examples per optimization step.
-    --num-workers:
-        PyTorch DataLoader workers. Higher values can improve throughput.
-    --device:
-        `cuda`, `cpu`, or `auto`.
-    --checkpoint-dir / --resume-from:
-        Save and resume long training runs.
-    --midgame-weight-*:
-        Optional weighting for landmarks such as moves 20-50.
 """
 
 from __future__ import annotations
